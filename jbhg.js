@@ -123,12 +123,9 @@
           indicators.removeClass("active");
           indicators.eq(current).addClass("active");
 
-          console.log(next + " " + current + " " + prev);
-
           // 对画面设置相应的类
           slides.each(function(index, element){
             element = $(element);
-
             if (index == current) {
               // 对当前画面的处理
               element.addClass("ready active").removeClass("done move");
@@ -171,6 +168,7 @@
           slides.eq(current).removeClass("already active done move");
           slides.eq(next).removeClass("move");
 
+          prev = current;
           current++;
 
           show();
