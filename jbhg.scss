@@ -12,15 +12,61 @@
     padding: 0;
   }
 
-  .jbhg-indicator-list,
   .jbhg-slide,
-  .jbhg-left-arrow,
-  .jbhg-right-arrow {
+  .jbhg-indicator-list,
+  .jbhg-turn-prev,
+  .jbhg-turn-next {
     box-sizing: border-box;
   }
 
   .jbhg-indicator {
     box-sizing: content-box;
+  }
+}
+
+// ---------------------------------------------------
+// z-index
+// ---------------------------------------------------
+
+$jbhg_base_z_index: 0;  // 基准 z-index
+
+.jbhg {
+  // 普通
+  .jbhg-slide {
+    z-index: $jbhg_base_z_index;
+  }
+  // 特效层
+  .jbhg-slide-effect {
+    z-index: $jbhg_base_z_index + 4;
+  }
+  // 等待进场
+  .jbhg-slide.ready {
+    z-index: $jbhg_base_z_index + 3;
+  }
+  // 当前显示
+  .jbhg-slide.ready.active {
+    z-index: $jbhg_base_z_index + 2;
+  }
+  // 已经退场
+  .jbhg-slide.ready.active.done {
+    z-index: $jbhg_base_z_index + 1;
+  }
+
+  // 指示器
+  .jbhg-indicator-list {
+    z-index: $jbhg_base_z_index + 5;
+  }
+  .jbhg-indicator {
+    z-index: $jbhg_base_z_index + 6;
+  }
+
+  // 翻页
+  .jbhg-turn {
+    z-index: $jbhg_base_z_index + 5;
+  }
+  .jbhg-turn-prev,
+  .jbhg-turn-next {
+    z-index: $jbhg_base_z_index + 6;
   }
 }
 
@@ -39,11 +85,11 @@
 }
 
 
-// ---------------------------------------------------
-// 工具类
-// ---------------------------------------------------
+// --------------------------------------------------
+// 方向
+// --------------------------------------------------
 
-@import "_utilities.scss";
+@import "_direction.scss";
 
 
 // ---------------------------------------------------
@@ -77,14 +123,21 @@
 
 
 // --------------------------------------------------
-// 轮播方式
-// --------------------------------------------------
-
-@import "_methods.scss";
-
-
-// --------------------------------------------------
 // 前后页翻页按钮
 // --------------------------------------------------
 
 @import "_turn.scss";
+
+
+// --------------------------------------------------
+// 过场特效
+// --------------------------------------------------
+
+@import "_effect.scss";
+
+
+// ---------------------------------------------------
+// 工具类
+// ---------------------------------------------------
+
+@import "_utilities.scss";

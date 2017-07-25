@@ -9,7 +9,7 @@
  *
  * [配置项]
  *
- * method:  轮播方式
+ * direction:  方向
  *     left-to-right   从左到右 (默认)
  *     right-to-left   从右到左
  *
@@ -36,15 +36,13 @@
       // 默认设置
       // -----------------------------
       var defaults = {
-        method: "left-to-right",
+        direction: "left-to-right",
+        effect: "fade",
         interval: 5000,
         indicator_position: "bottom-right",
         indicator_type: "square",
-        show_turn_buttons: false,
+        show_nav_buttons: false,
       }
-
-      // combines defaults and parameters
-      var options = $.extend({}, defaults, parameters);
 
       // attribute settings
       this.each(function () {
@@ -68,6 +66,7 @@
 
         // 选项类型转换
         options.interval = Number(options.interval);
+        options.show_nav_buttons = Boolean(options.show_nav_buttons);
 
         // 搜素所有jbhg-slide
         var slides = $(this).find(".jbhg-slide");
@@ -76,8 +75,8 @@
         // 如果没有找到 jbhg.slide, 直接返回
         if (slides.length == 0) return true;
 
-        // 把轮播方式附加到.jbhg上
-        $(this).addClass(options.method);
+        // 把轮播方向和过场效果附加到.jbhg上
+        $(this).addClass(options.direction).addClass(options.effect);
 
         // 搜素所有的.jbhg-indicator
         var indicator_list = $(this).find(".jbhg-indicator-list");
@@ -142,7 +141,7 @@
           });
 
           // 如果slide小于2张，则不需要轮播
-          if (sildes.length < 2) return true;
+          if (slides.length < 2) return true;
 
           // 启动显示定时器
           if (!pause) {

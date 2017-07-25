@@ -1,0 +1,19 @@
+.jbhg.fade {
+  .jbhg-slide {
+    &.ready {
+      display: block;
+      opacity: 0.5;
+    }
+
+    &.ready.active {
+      opacity: 1;
+      transition: all 2s;
+    }
+
+    &.ready.active.done {
+      left: 0;
+      opacity: 0.9;
+      transition: all 2s;
+    }
+  }
+}
