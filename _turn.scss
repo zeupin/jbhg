@@ -3,6 +3,7 @@
 // --------------------------------------------------
 .jbhg-turn {
   position: absolute;
+  display: none;
 }
 
 // --------------------------------------------------
@@ -19,7 +20,7 @@
     font-size: 2rem;
     line-height: 3rem;
     text-align: center;
-    color: #aaa;
+    color: #ddd;
     cursor: pointer;
 
     &:hover {

@@ -178,10 +178,22 @@
 
         // 如果鼠标进入
         $(this).mouseenter(function(){
+          // 显示翻页按钮
+          if (slides.length > 1) {
+              turn.show();
+          }
         });
 
         // 鼠标移开,重新启动动画
         $(this).mouseleave(function(){
+          // 隐藏翻页按钮
+          turn.hide();
+
+          // 看看是否需要运行动画
+          if (pause == true) {
+            pause = false;
+            move();
+          }
         });
 
         // 处理指示器的事件
@@ -190,6 +202,7 @@
           // 移动到指示器上方时,显示对应的slide
           $(this).mouseenter(function(){
             clearTimeout(timer);
+            pause = true;
             current = index;
             show();
           });
