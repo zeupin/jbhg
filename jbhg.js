@@ -97,6 +97,9 @@
         var turn_prev = $(this).find(".jbhg-turn-prev");
         var turn_next = $(this).find(".jbhg-turn-next");
 
+        // 如果slides小于2个，则不显示翻页按钮
+        if (slides.length < 2) turn.hide();
+
         // 索引指示变量
         var current = null;
         var prev = null;
@@ -137,6 +140,9 @@
               element.removeClass("ready active done move");
             }
           });
+
+          // 如果slide小于2张，则不需要轮播
+          if (sildes.length < 2) return true;
 
           // 启动显示定时器
           if (!pause) {
