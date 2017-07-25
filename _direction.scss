@@ -9,8 +9,8 @@
 .jbhg.left-to-right {
   .jbhg-slide {
     &.ready {
-      left: -100%;
       top: 0;
+      left: -100%;
     }
 
     &.ready.active {
@@ -18,7 +18,7 @@
     }
 
     &.ready.active.done {
-      left: 0;
+      left: 100%;
     }
   }
 }

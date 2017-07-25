@@ -99,14 +99,14 @@
         // 如果slides小于2个，则不显示翻页按钮
         if (slides.length < 2) turn.hide();
 
-        // 索引指示变量
-        var current = null;
-        var prev = null;
-        var next = null;
-
         // 计时器相关变量
         var timer = null;
         var pause = false;  // 是否暂停轮播
+
+        // 索引指示变量
+        var current = 0;
+        var prev = slides.length - 1;
+        var next = current + 1;
 
         // 开始处理
         current = 0;
@@ -114,15 +114,16 @@
 
         // 显示当前画面
         function show() {
-          // 计算 current, prev 和 next
+          // 计算 current, next
           current = (current < 0) ? (current + slides_count) : current;
           current = current % slides_count;
-          prev = (current == 0) ? slides_count - 1 : current - 1;
-          next = (current == (slides_count - 1)) ? 0 : current + 1;
+          next = (current + 1) % slides_count;
 
           // 设置指示器
           indicators.removeClass("active");
           indicators.eq(current).addClass("active");
+
+          console.log(next + " " + current + " " + prev);
 
           // 对画面设置相应的类
           slides.each(function(index, element){
@@ -152,50 +153,44 @@
 
         // 显示过渡动画
         function move() {
+          clearTimeout(timer);
+
           indicators.eq(current).removeClass("active");
           indicators.eq(next).addClass("active");
 
           slides.eq(current).addClass("ready active done move");
           slides.eq(next).addClass("ready active move");
 
-          clearTimeout(timer);
           timer = window.setTimeout(done, 2000);
         }
 
         // 完成
         function done() {
+          clearTimeout(timer);
+
           slides.eq(current).removeClass("already active done move");
           slides.eq(next).removeClass("move");
 
           current++;
 
-          clearTimeout(timer);
           show();
         }
+
+        // 如果鼠标进入
+        $(this).mouseenter(function(){
+        });
+
+        // 鼠标移开,重新启动动画
+        $(this).mouseleave(function(){
+        });
 
         // 处理指示器的事件
         indicators.each(function(index, element){
 
-          // 点击指示器, 显示对应的画面
-          $(this).click(function(){
+          // 移动到指示器上方时,显示对应的slide
+          $(this).mouseenter(function(){
             clearTimeout(timer);
             current = index;
-            pause = false;
-            show();
-          });
-
-          // 移动到指示器上方时,显示对应的画面
-          $(this).mouseover(function(){
-            clearTimeout(timer);
-            current = index;
-            pause = true;
-            show();
-          });
-
-          // 鼠标移开,重新激活timer
-          $(this).mouseout(function(){
-            clearTimeout(timer);
-            pause = false;
             show();
           });
         });
