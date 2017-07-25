@@ -1,0 +1,70 @@
+// --------------------------------------------------
+// 前后页翻页按钮
+// --------------------------------------------------
+.jbhg-turn{
+  position: absolute;
+}
+
+// --------------------------------------------------
+// 水平方向的箭头mixin
+// --------------------------------------------------
+
+@mixin jbhg-turn-horizontal() {
+  .jbhg-turn-prev,
+  .jbhg-turn-next {
+    position: absolute;
+    top: 0;
+    width: 2rem;
+    height: 3rem;
+    font-size: 2rem;
+    line-height: 3rem;
+    text-align: center;
+    color: #aaa;
+    cursor: pointer;
+
+    &:hover {
+      background: #888;
+      color: #fff;
+      opacity: 0.8;
+    }
+  }
+}
+
+
+// --------------------------------------------------
+// .left-to-right
+// --------------------------------------------------
+
+.left-to-right .jbhg-turn {
+  width: 100%;
+  top: 40%;
+
+  @include jbhg-turn-horizontal();
+
+  .jbhg-turn-prev {
+    left: 1rem;
+  }
+
+  .jbhg-turn-next {
+    right: 1rem;
+  }
+}
+
+// --------------------------------------------------
+// .right-to-left
+// --------------------------------------------------
+
+.right-to-left .jbhg-turn {
+  width: 100%;
+  top: 40%;
+
+  @include jbhg-turn-horizontal();
+
+  .jbhg-turn-prev {
+    right: 1rem;
+  }
+
+  .jbhg-turn-next {
+    left: 1rem;
+  }
+}

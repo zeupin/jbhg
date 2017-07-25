@@ -9,11 +9,9 @@
  *
  * [配置项]
  *
- * effect:  轮播类型
- *     preset1  从左到右 (默认)
- *     preset2  从右到左
- *     preset3  从上到下
- *     preset4  从下到上
+ * method:  轮播方式
+ *     left-to-right   从左到右 (默认)
+ *     right-to-left   从右到左
  *
  * interval: 显示画面的时长,以毫秒为单位
  *     5000   5秒 (默认)
@@ -25,8 +23,8 @@
  * indicator_type: 指示器的样式
  *     square         小方块 (默认)
  *     square-number  方块和数字
- *     disc           实心圆
- *     disc-number    实心圆和数字
+ *     disc           小圆点
+ *     disc-number    圆圈和数字
  *     none           不显示指示器
  */
 ;
@@ -38,20 +36,11 @@
       // 默认设置
       // -----------------------------
       var defaults = {
-        // class: 焦点轮播图类型
-        // 1 从左到右移动
-        // 2 从右到左移动
-        // 3 从上到下移动
-        // 4 从下到上移动
-        effect: "preset1",
+        method: "left-to-right",
         interval: 5000,
-        indicator_position: "bottom",
-        indicator_type: "square",
-      }
-
-      parameters = {
         indicator_position: "bottom-right",
-        indicator_type: "square-number",
+        indicator_type: "square",
+        show_turn_buttons: false,
       }
 
       // combines defaults and parameters
@@ -60,85 +49,99 @@
       // attribute settings
       this.each(function () {
 
-        // 检查 data-* 的属性配置项
-
-        var effect = $(this).attr("data-effect");
-        if (effect == undefined) {
-          effect = options.effect;
+        // 获取属性中的data-*
+        function getPropData(element) {
+          var data = {}
+          for (var i=0, len=element.attributes.length; i<len; i++) {
+            var attr = element.attributes[i];
+            if (attr.nodeName.indexOf('data-') != -1) {
+              var name = attr.nodeName.slice(5).replace(/\-/, '_');
+              var value = attr.value;
+              data[name] = value;
+            }
+          }
+          return data;
         }
 
-        var autoplay = $(this).attr("data-autoplay");
-        if (autoplay == undefined) {
-          autoplay = options.autoplay;
-        }
+        // 整合选项
+        var options = $.extend({}, defaults, parameters, getPropData(this));
 
-        var interval = $(this).attr("data-interval");
-        if (interval == undefined) {
-          interval = options.interval;
-        }
+        // 选项类型转换
+        options.interval = Number(options.interval);
 
-        // 搜素所有jbhg-item
-        var items = $(this).find(".jbhg-item");
-        var items_count = items.length;
+        // 搜素所有jbhg-slide
+        var slides = $(this).find(".jbhg-slide");
+        var slides_count = slides.length;
 
-        // 如果没有找到 jbhg.item, 直接返回
-        if (items.length == 0) return true;
+        // 如果没有找到 jbhg.slide, 直接返回
+        if (slides.length == 0) return true;
 
-        // 把效果类附加到.jbhg上
-        $(this).addClass(effect);
+        // 把轮播方式附加到.jbhg上
+        $(this).addClass(options.method);
 
-        // 搜素所有的.jbhg-indicator-item
+        // 搜素所有的.jbhg-indicator
         var indicator_list = $(this).find(".jbhg-indicator-list");
-        var indicators = $(this).find(".jbhg-indicator-item");
+        var indicators = $(this).find(".jbhg-indicator");
         if (indicators.length == 0) {
           indicator_list = $('<div class="jbhg-indicator-list"/>').appendTo(this);
           indicator_list.addClass(options.indicator_type);
           indicator_list.addClass(options.indicator_position);
-          for (var i=0; i<items_count; i++) {
-            $('<div class="jbhg-indicator-item">'+(i+1)+'</div>').appendTo(indicator_list);
+          for (var i=0; i<slides_count; i++) {
+            $('<div class="jbhg-indicator">'+(i+1)+'</div>').appendTo(indicator_list);
           }
-          indicators = $(this).find(".jbhg-indicator-item");
+          indicators = $(this).find(".jbhg-indicator");
         }
 
-        // 当前位置
-        var current = 0;
+        // 搜索前后翻页按钮
+        var turn = $(this).find(".jbhg-turn");
+        var turn_prev = $(this).find(".jbhg-turn-prev");
+        var turn_next = $(this).find(".jbhg-turn-next");
+
+        // 索引指示变量
+        var current = null;
         var prev = null;
         var next = null;
 
-        // 开始处理
+        // 计时器相关变量
         var timer = null;
-        var pause = false;
+        var pause = false;  // 是否暂停轮播
 
+        // 开始处理
+        current = 0;
         show();
-
-        // 初始化
-        function init() {
-          items.removeClass("ready active done move");
-        }
 
         // 显示当前画面
         function show() {
-
           // 计算 current, prev 和 next
-          current = current % items_count;
-          prev = (current == 0) ? items_count - 1 : current - 1;
-          next = (current == (items_count - 1)) ? 0 : current + 1;
+          current = (current < 0) ? (current + slides_count) : current;
+          current = current % slides_count;
+          prev = (current == 0) ? slides_count - 1 : current - 1;
+          next = (current == (slides_count - 1)) ? 0 : current + 1;
 
           // 设置指示器
           indicators.removeClass("active");
           indicators.eq(current).addClass("active");
 
-          // 显示对应的画面
-          items.eq(current)
-            .addClass("ready active")
-            .removeClass("done move");
-          items.eq(next)
-            .addClass("ready")
-            .removeClass("active done move");
+          // 对画面设置相应的类
+          slides.each(function(index, element){
+            element = $(element);
+
+            if (index == current) {
+              // 对当前画面的处理
+              element.addClass("ready active").removeClass("done move");
+            } else if (index == next) {
+              // 对下一个画面的处理
+              element.addClass("ready").removeClass("active done move");
+            } else {
+              // 其它
+              element.removeClass("ready active done move");
+            }
+          });
 
           // 启动显示定时器
           if (!pause) {
-            timer = window.setTimeout(move, interval);
+            clearTimeout(timer);
+            timer = window.setTimeout(move, options.interval);
           }
         }
 
@@ -147,19 +150,21 @@
           indicators.eq(current).removeClass("active");
           indicators.eq(next).addClass("active");
 
-          items.eq(current).addClass("ready active done move");
-          items.eq(next).addClass("ready active move");
+          slides.eq(current).addClass("ready active done move");
+          slides.eq(next).addClass("ready active move");
 
+          clearTimeout(timer);
           timer = window.setTimeout(done, 2000);
         }
 
         // 完成
         function done() {
-          items.eq(current).removeClass("already active done move");
-          items.eq(next).removeClass("move");
+          slides.eq(current).removeClass("already active done move");
+          slides.eq(next).removeClass("move");
 
           current++;
 
+          clearTimeout(timer);
           show();
         }
 
@@ -174,7 +179,7 @@
             show();
           });
 
-          // 移动到指示器上方时, 显示对应的画面
+          // 移动到指示器上方时,显示对应的画面
           $(this).mouseover(function(){
             clearTimeout(timer);
             current = index;
@@ -182,14 +187,31 @@
             show();
           });
 
-          // 鼠标移开, 重新激活timer
+          // 鼠标移开,重新激活timer
           $(this).mouseout(function(){
             clearTimeout(timer);
-            current = index;
             pause = false;
             show();
           });
         });
+
+        // 前翻页按钮事件
+        if (turn_prev.length) {
+          turn_prev.click(function(){
+            clearTimeout(timer);
+            current--;
+            show();
+          });
+        }
+
+        // 后翻页按钮事件
+        if (turn_next.length) {
+          turn_next.click(function(){
+            clearTimeout(timer);
+            current++;
+            show();
+          });
+        }
       });
 
       // for chain-style code

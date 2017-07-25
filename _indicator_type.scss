@@ -1,0 +1,83 @@
+// ---------------------------------------------------
+// indicator_type
+// ---------------------------------------------------
+
+// ---------------------------------------------------
+// none
+// ---------------------------------------------------
+
+.jbhg-indicator-list.none {
+  display: none;
+}
+
+// ---------------------------------------------------
+// square  小方块
+// ---------------------------------------------------
+
+.jbhg-indicator-list.square {
+  .jbhg-indicator {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #fff;
+    font-size: 0rem;
+    color: #000;
+
+    &.active {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #fff;
+    }
+  }
+}
+
+// ---------------------------------------------------
+// square-number  方块加数字
+// ---------------------------------------------------
+.jbhg-indicator-list.square-number {
+  .jbhg-indicator {
+    background-color: #fff;
+    color: #000;
+
+    &.active {
+      background-color: #888;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+  }
+}
+
+// ---------------------------------------------------
+// disc  小圆点
+// ---------------------------------------------------
+
+.jbhg-indicator-list.disc {
+  .jbhg-indicator {
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+
+    &.active {
+      background-color: #888;
+      border: 1px solid #fff;
+    }
+  }
+}
+
+// ---------------------------------------------------
+// disc-number  圆圈加数字
+// ---------------------------------------------------
+
+.jbhg-indicator-list.disc-number {
+  .jbhg-indicator {
+    background-color: #fff;
+    border-radius: 0.6rem;
+
+    &.active {
+      background-color: #777;
+      border: 1px solid #fff;
+      color: #fff;
+    }
+  }
+}

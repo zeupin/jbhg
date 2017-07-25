@@ -1,3 +1,7 @@
+// ---------------------------------------------------
+// 核心设置
+// ---------------------------------------------------
+
 .jbhg {
   position: relative;
   overflow: hidden;
@@ -9,221 +13,78 @@
   }
 
   .jbhg-indicator-list,
-  .jbhg-indicator-item,
-  .jbhg-item,
+  .jbhg-slide,
   .jbhg-left-arrow,
   .jbhg-right-arrow {
     box-sizing: border-box;
   }
+
+  .jbhg-indicator {
+    box-sizing: content-box;
+  }
 }
 
-.jbhg-item {
+
+// ---------------------------------------------------
+// slide设置
+// ---------------------------------------------------
+
+.jbhg-slide {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   overflow: hidden;
   display: none;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 }
 
+
 // ---------------------------------------------------
-// 指示器
+// 工具类
+// ---------------------------------------------------
+
+@import "_utilities.scss";
+
+
+// ---------------------------------------------------
+// 当前位置指示器
 // ---------------------------------------------------
 
 .jbhg-indicator-list {
   position: absolute;
-  z-index: 100;
 }
 
+.jbhg-indicator {
+  display: inline-block;
 
-.jbhg-indicator-item {
-  z-index: 101;
+  // 默认尺寸设为 16像素×16像素，方便订制时，做背景图
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.5rem;
+  text-align: center;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+
   cursor: pointer;
 }
 
-// ---------------------------------------------------
-// indicator_position
-// ---------------------------------------------------
+// 指示器的显示位置
+@import "_indicator_position.scss";
 
-.jbhg-indicator-list.bottom {
-  bottom: 1em;
-  width: 100%;
-  text-align: center;
+// 指示器的样式
+@import "_indicator_type.scss";
 
-  .jbhg-indicator-item {
-    display: inline-block;
-    text-align: center;
-  }
-}
-
-
-.jbhg-indicator-list.bottom-right {
-  bottom: 1em;
-  width: 100%;
-  text-align: right;
-  padding-right: 1rem;
-
-  .jbhg-indicator-item {
-    display: inline-block;
-    text-align: center;
-  }
-}
-
-// ---------------------------------------------------
-// indicator_type
-// ---------------------------------------------------
-
-.jbhg-indicator-list.none {
-  display: none;
-}
-
-
-.jbhg-indicator-list.square {
-  .jbhg-indicator-item {
-    margin-right: 0.4rem;
-    font-size: 0rem;
-    width: 0.8rem;
-    height: 0.8rem;
-    background-color: #fff;
-    color: #000;
-    line-height: 2rem;
-
-    &.active {
-      background-color: #888;
-      color: #000;
-      width: 1rem;
-      height: 1rem;
-      border: 0.1rem solid #fff;
-    }
-  }
-}
-
-
-.jbhg-indicator-list.square-number {
-  .jbhg-indicator-item {
-    margin-right: 0.4rem;
-    font-size: 0.7rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    line-height: 1.2rem;
-    background-color: #fff;
-    color: #000;
-
-    &.active {
-      background-color: #888;
-      color: #fff;
-      border: 1px solid #fff;
-    }
-  }
-}
-
-
-.jbhg-indicator-list.disc {
-  .jbhg-indicator-item {
-    margin-right: 0.4rem;
-    font-size: 0rem;
-    width: 0.8rem;
-    height: 0.8rem;
-    background-color: #fff;
-    border-radius: 0.4rem;
-
-    &.active {
-      background-color: #888;
-      border: 1px solid #fff;
-    }
-  }
-}
-
-
-.jbhg-indicator-list.disc-number {
-  .jbhg-indicator-item {
-    margin-right: 0.4rem;
-    font-size: 0.7rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    line-height: 1.2rem;
-    background-color: #fff;
-    border-radius: 0.7rem;
-
-    &.active {
-      background-color: #777;
-      border: 1px solid #fff;
-      color: #fff;
-    }
-  }
-}
 
 // --------------------------------------------------
-// 左右箭头
+// 轮播方式
 // --------------------------------------------------
 
-.jbhg-left-arrow,
-.jbhg-right-arrow {
-  position: absolute;
-  z-index: 102;
-  top: 45%;
-}
+@import "_methods.scss";
 
-.jbhg-left-arrow {
-  left: 1rem;
-}
-
-.jbhg-right-arrow {
-  right: 1rem;
-}
 
 // --------------------------------------------------
-// 预制样式
+// 前后页翻页按钮
 // --------------------------------------------------
 
-// 从左往右移动
-.jbhg.preset1 {
-  .jbhg-item {
-    &.move {
-      transition: all 2s;
-    }
-
-    &.ready {
-      left: -100%;
-      top: 0;
-      display: block;
-    }
-
-    &.ready.active {
-      left: 0;
-    }
-
-    &.ready.active.done {
-      left: 100%;
-    }
-  }
-}
-
-// 从右往左移动
-.jbhg.preset2 {
-  .jbhg-item {
-    &.move {
-      transition: all 2s;
-    }
-
-    &.ready {
-      left: 100%;
-      top: 0;
-      display: block;
-    }
-
-    &.ready.active {
-      left: 0;
-    }
-
-    &.ready.active.done {
-      left: -100%;
-    }
-  }
-}
+@import "_turn.scss";
