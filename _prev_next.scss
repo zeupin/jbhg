@@ -1,18 +1,18 @@
 // --------------------------------------------------
 // 前后页翻页按钮
 // --------------------------------------------------
-.jbhg-turn {
+.jbhg-prev-next {
   position: absolute;
   display: none;
 }
 
 // --------------------------------------------------
-// 水平方向的箭头mixin
+// 水平方向的翻页按钮栏
 // --------------------------------------------------
 
-@mixin jbhg-turn-horizontal() {
-  .jbhg-turn-prev,
-  .jbhg-turn-next {
+@mixin jbhg-paging-horizontal() {
+  .jbhg-prev-btn,
+  .jbhg-next-btn {
     position: absolute;
     top: 0;
     width: 2rem;
@@ -36,17 +36,17 @@
 // .left-to-right
 // --------------------------------------------------
 
-.left-to-right .jbhg-turn {
+.left-to-right .jbhg-prev-next {
   width: 100%;
   top: 40%;
 
-  @include jbhg-turn-horizontal();
+  @include jbhg-paging-horizontal();
 
-  .jbhg-turn-prev {
+  .jbhg-prev-btn {
     left: 1rem;
   }
 
-  .jbhg-turn-next {
+  .jbhg-next-btn {
     right: 1rem;
   }
 }
@@ -55,17 +55,17 @@
 // .right-to-left
 // --------------------------------------------------
 
-.right-to-left .jbhg-turn {
+.right-to-left .jbhg-prev-next {
   width: 100%;
   top: 40%;
 
-  @include jbhg-turn-horizontal();
+  @include jbhg-paging-horizontal();
 
-  .jbhg-turn-prev {
+  .jbhg-prev-btn {
     right: 1rem;
   }
 
-  .jbhg-turn-next {
+  .jbhg-next-btn {
     left: 1rem;
   }
 }

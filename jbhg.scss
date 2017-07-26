@@ -14,8 +14,8 @@
 
   .jbhg-slide,
   .jbhg-indicator-list,
-  .jbhg-turn-prev,
-  .jbhg-turn-next {
+  .jbhg-prev-btn,
+  .jbhg-next-btn {
     box-sizing: border-box;
   }
 
@@ -60,12 +60,12 @@ $jbhg_base_z_index: 0;  // 基准 z-index
     z-index: $jbhg_base_z_index + 6;
   }
 
-  // 翻页
-  .jbhg-turn {
+  // 前后翻页栏
+  .jbhg-prev-next {
     z-index: $jbhg_base_z_index + 5;
   }
-  .jbhg-turn-prev,
-  .jbhg-turn-next {
+  .jbhg-prev-btn,
+  .jbhg-next-btn {
     z-index: $jbhg_base_z_index + 6;
   }
 }
@@ -126,7 +126,7 @@ $jbhg_base_z_index: 0;  // 基准 z-index
 // 前后页翻页按钮
 // --------------------------------------------------
 
-@import "_turn.scss";
+@import "_prev_next.scss";
 
 
 // --------------------------------------------------

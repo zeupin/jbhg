@@ -41,13 +41,12 @@
         interval: 5000,
         indicator_position: "bottom-right",
         indicator_type: "square",
-        show_nav_buttons: false,
       }
 
       // attribute settings
       this.each(function () {
 
-        // 获取属性中的data-*
+        // 获取jbhg属性中的data-*
         function getPropData(element) {
           var data = {}
           for (var i=0, len=element.attributes.length; i<len; i++) {
@@ -92,12 +91,12 @@
         }
 
         // 搜索前后翻页按钮
-        var turn = $(this).find(".jbhg-turn");
-        var turn_prev = $(this).find(".jbhg-turn-prev");
-        var turn_next = $(this).find(".jbhg-turn-next");
+        var prev_next = $(this).find(".jbhg-prev-next");
+        var prev_btn = $(this).find(".jbhg-prev-btn");
+        var next_btn = $(this).find(".jbhg-next-btn");
 
         // 如果slides小于2个，则不显示翻页按钮
-        if (slides.length < 2) turn.hide();
+        if (slides.length < 2) prev_next.hide();
 
         // 计时器相关变量
         var timer = null;
@@ -178,14 +177,14 @@
         $(this).mouseenter(function(){
           // 显示翻页按钮
           if (slides.length > 1) {
-              turn.show();
+              prev_next.show();
           }
         });
 
         // 鼠标移开,重新启动动画
         $(this).mouseleave(function(){
           // 隐藏翻页按钮
-          turn.hide();
+          prev_next.hide();
 
           // 看看是否需要运行动画
           if (pause == true) {
@@ -207,8 +206,8 @@
         });
 
         // 前翻页按钮事件
-        if (turn_prev.length) {
-          turn_prev.click(function(){
+        if (prev_btn.length) {
+          prev_btn.click(function(){
             clearTimeout(timer);
             current--;
             show();
@@ -216,8 +215,8 @@
         }
 
         // 后翻页按钮事件
-        if (turn_next.length) {
-          turn_next.click(function(){
+        if (next_btn.length) {
+          next_btn.click(function(){
             clearTimeout(timer);
             current++;
             show();
