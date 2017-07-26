@@ -18,7 +18,7 @@
 ```html
 <head>
   ...
-  <link rel="stylesheet" href="jbhg.css">
+  <link rel="stylesheet" href="jbhg.min.css">
   ...
 </head>
 <body>
