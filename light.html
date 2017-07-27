@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>浅色主题</title>
+  <link rel="stylesheet" href="jbhg.css">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <div class="jbhg light" data-autoplay="true" data-indicator-type="disc-number">
+    <!-- 要展示的画面 -->
+    <ul>
+      <li class="jbhg-slide">
+        <img src="light1.png" alt="" class="jbhg-full-size">
+      </li>
+      <li class="jbhg-slide">
+        <img src="light2.png" alt="" class="jbhg-full-size">
+      </li>
+      <li class="jbhg-slide">
+        <img src="light1.png" alt="" class="jbhg-full-size">
+      </li>
+      <li class="jbhg-slide">
+        <img src="light2.png" alt="" class="jbhg-full-size">
+      </li>
+    </ul>
+
+    <!-- 前后翻页按钮 -->
+    <div class="jbhg-paging-bar">
+      <div class="jbhg-prev-page">&lt;</div>
+      <div class="jbhg-next-page">&gt;</div>
+    </div>
+  </div>
+
+  <script src="./jquery.min.js"></script>
+  <script src="./jbhg.js"></script>
+  <script>
+    $(".jbhg").jbhg();
+  </script>
+</body>
+</html>

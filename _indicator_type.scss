@@ -19,13 +19,6 @@
     font-size: 0;
     width: 10px;
     height: 10px;
-    background-color: #fff;
-    border: 1px solid #888;
-
-    &.active {
-      background-color: #888;
-      border: 1px solid #fff;
-    }
   }
 }
 
@@ -33,17 +26,6 @@
 // square-number  方块加数字
 // ---------------------------------------------------
 .jbhg-indicator-list.square-number {
-  .jbhg-indicator {
-    background-color: #fff;
-    border: 1px solid #888;
-    color: #888;
-
-    &.active {
-      background-color: #888;
-      border: 1px solid #fff;
-      color: #fff;
-    }
-  }
 }
 
 // ---------------------------------------------------
@@ -55,14 +37,7 @@
     font-size: 0;
     width: 10px;
     height: 10px;
-    background-color: #fff;
-    border: 1px solid #888;
     border-radius: 5px;
-
-    &.active {
-      background-color: #888;
-      border: 1px solid #fff;
-    }
   }
 }
 
@@ -72,15 +47,6 @@
 
 .jbhg-indicator-list.disc-number {
   .jbhg-indicator {
-    background-color: #fff;
-    border: 1px solid #888;
-    color: #888;
     border-radius: 0.6rem;
-
-    &.active {
-      background-color: #888;
-      border: 1px solid #fff;
-      color: #fff;
-    }
   }
 }

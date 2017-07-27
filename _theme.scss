@@ -1,0 +1,81 @@
+// ---------------------------------------------------
+// 主题变量
+// ---------------------------------------------------
+
+$theme-default-bg: #eee;
+$theme-default-border: #888;
+$theme-default-color: #888;
+$theme-active-bg: #888;
+$theme-active-border: #eee;
+$theme-active-color: #eee;
+
+// ---------------------------------------------------
+// 默认主题, 适用于深色背景
+// ---------------------------------------------------
+.jbhg-indicator {
+  background-color: $theme-default-bg;
+  border: 1px solid $theme-default-border;
+  color: $theme-default-color;
+
+  &.active {
+    background-color: $theme-active-bg;
+    border: 1px solid $theme-active-border;
+    color: $theme-active-color;
+  }
+}
+
+.jbhg-paging-bar {
+  .jbhg-prev-page,
+  .jbhg-next-page {
+    color: $theme-active-color;
+  }
+
+  &:hover {
+    .jbhg-prev-page,
+    .jbhg-next-page {
+      background: $theme-active-border;
+      color: $theme-active-color;
+      opacity: 0.8;
+    }
+  }
+}
+
+// ---------------------------------------------------
+// 浅色主题, 适用于白色等浅色背景
+// ---------------------------------------------------
+.jbhg.light {
+  $theme-default-bg: #fff;
+  $theme-default-border: #888;
+  $theme-default-color: #888;
+  $theme-active-bg: #aaa;
+  $theme-active-border: #999;
+  $theme-active-color: #fff;
+
+  .jbhg-indicator {
+    background-color: $theme-default-bg;
+    border: 1px solid $theme-default-border;
+    color: $theme-default-color;
+
+    &.active {
+      background-color: $theme-active-bg;
+      border: 1px solid $theme-active-border;
+      color: $theme-active-color;
+    }
+  }
+
+  .jbhg-paging-bar {
+    .jbhg-prev-page,
+    .jbhg-next-page {
+      color: $theme-default-color;
+    }
+
+    &:hover {
+      .jbhg-prev-page,
+      .jbhg-next-page {
+        background: $theme-active-border;
+        color: $theme-active-color;
+        opacity: 0.8;
+      }
+    }
+  }
+}

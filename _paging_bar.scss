@@ -1,34 +1,36 @@
 // --------------------------------------------------
-// 前后页翻页按钮
+// 翻页栏
 // --------------------------------------------------
 .jbhg-paging-bar {
   position: absolute;
 }
 
 // --------------------------------------------------
+// 前后页翻页按钮
+// --------------------------------------------------
+.jbhg-prev-page,
+.jbhg-next-page {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+// --------------------------------------------------
 // 水平方向的翻页按钮栏
 // --------------------------------------------------
-
 @mixin jbhg-paging-horizontal() {
   .jbhg-prev-page,
   .jbhg-next-page {
-    position: absolute;
     top: 0;
-    width: 3rem;
-    height: 3rem;
-    font-size: 2rem;
-    line-height: 3rem;
-    text-align: center;
-    color: #ddd;
-    cursor: pointer;
   }
 
   &:hover {
     .jbhg-prev-page,
     .jbhg-next-page {
-      background: #888;
-      color: #fff;
-      opacity: 0.8;
     }
   }
 }
@@ -37,7 +39,6 @@
 // --------------------------------------------------
 // .left-to-right
 // --------------------------------------------------
-
 .left-to-right .jbhg-paging-bar {
   width: 100%;
   top: 40%;
@@ -56,7 +57,6 @@
 // --------------------------------------------------
 // .right-to-left
 // --------------------------------------------------
-
 .right-to-left .jbhg-paging-bar {
   width: 100%;
   top: 40%;
