@@ -107,6 +107,35 @@
 |----|----
 | fade | 逐渐出现 (默认)
 
+## 配置参数的使用方法
+
+支持两种方式使用配置参数：
+
+### 1. 直接在html中使用 `data-*`。这种方式的优先级最高。
+
+```
+<div class="jbhg" data-interval="8000" data-indicator-type="disc-number">...</div>
+```
+
+### 2. 在js使用时传入。这种方式的优先级其次。
+
+```
+  <script>
+    $(".jbhg").jbhg({
+      'direction': "left-to-right",
+      'interval': 10000,
+    });
+  </script>
+```
+
+## 主题
+
+内置了两个主题，分别对应暗色调的背景图和亮色调的背景图。
+
+默认是暗色调背景图，直接使用 `<div class="jbhg">...</div>` 即可。
+
+可选亮色调背景，用 `<div class="jbhg light">...</div>`。
+
 ## 一起参与
 
 欢迎大家一起参与，持续改进这个前端库。如果您发现任何bug或者想提出任何建议，欢迎提交PR交流。
