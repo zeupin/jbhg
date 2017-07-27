@@ -32,6 +32,9 @@
  *
  * effect: 轮播的过场效果
  *     fade           逐渐显示(默认)
+ *
+ * auto_hide_paging_bar: 是否自动隐藏前后翻页栏
+ *     true/false    默认为false
  */
 ;
 (function ($) {
@@ -48,9 +51,26 @@
         indicator_position: "bottom-right",
         indicator_type: "square",
         effect: "fade",
+        auto_hide_paging_bar: false,
       }
 
-      // attribute settings
+      // -----------------------------
+      // 工具函数:转换为bool型
+      // -----------------------------
+      function toBool(val) {
+        switch(typeof(val)) {
+          case "boolean":
+            return val;
+          case "string":
+            return val.toString().toLowerCase() === 'true';
+          default:
+            return Boolean(val);
+        }
+      }
+
+      // -----------------------------
+      // 正式开始处理
+      // -----------------------------
       this.each(function () {
 
         // 获取jbhg属性中的data-*
@@ -72,7 +92,8 @@
 
         // 选项类型转换
         options.interval = Number(options.interval);
-        options.autoplay = (options.autoplay.toString().toLowerCase() === 'true');
+        options.autoplay = toBool(options.autoplay);
+        options.auto_hide_paging_bar = toBool(options.auto_hide_paging_bar);
 
         // 搜素所有jbhg-slide
         var slides = $(this).find(".jbhg-slide");
@@ -98,12 +119,9 @@
         }
 
         // 搜索前后翻页按钮
-        var prev_next = $(this).find(".jbhg-prev-next");
-        var prev_btn = $(this).find(".jbhg-prev-btn");
-        var next_btn = $(this).find(".jbhg-next-btn");
-
-        // 如果slides小于2个，则不显示翻页按钮
-        if (slides.length < 2) prev_next.hide();
+        var paging_bar = $(this).find(".jbhg-paging-bar");
+        var prev_page = $(this).find(".jbhg-prev-page");
+        var next_page = $(this).find(".jbhg-next-page");
 
         // 计时器相关变量
         var timer = null;
@@ -183,23 +201,34 @@
           show();
         }
 
-        // 如果鼠标进入
-        $(this).mouseenter(function(){
-          // 显示翻页按钮
-          if (slides.length > 1) {
-              prev_next.show();
-          }
-        });
+        /**
+         * 处理自动隐藏翻页栏
+         */
+        if (options.auto_hide_paging_bar) {
+          // 先把翻页栏隐藏
+          paging_bar.hide();
+
+          // 鼠标进入
+          $(this).mouseenter(function(){
+            // 显示翻页按钮
+            if (slides.length > 1) {
+                paging_bar.show();
+            }
+          });
+
+          // 鼠标移出
+          $(this).mouseleave(function(){
+            // 隐藏翻页按钮
+            paging_bar.hide();
+          });
+        }
 
         // 鼠标移开,重新启动动画
         $(this).mouseleave(function(){
-          // 隐藏翻页按钮
-          prev_next.hide();
-
           // 看看是否需要运行动画
           if (pause == true) {
             pause = false;
-            move();
+            show();
           }
         });
 
@@ -216,8 +245,8 @@
         });
 
         // 前翻页按钮事件
-        if (prev_btn.length) {
-          prev_btn.click(function(){
+        if (prev_page.length) {
+          prev_page.click(function(){
             clearTimeout(timer);
             current--;
             show();
@@ -225,8 +254,8 @@
         }
 
         // 后翻页按钮事件
-        if (next_btn.length) {
-          next_btn.click(function(){
+        if (next_page.length) {
+          next_page.click(function(){
             clearTimeout(timer);
             current++;
             show();

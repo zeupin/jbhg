@@ -16,8 +16,8 @@
 
   .jbhg-slide,
   .jbhg-indicator-list,
-  .jbhg-prev-btn,
-  .jbhg-next-btn {
+  .jbhg-prev-page,
+  .jbhg-next-page {
     box-sizing: border-box;
   }
 
@@ -63,11 +63,11 @@ $jbhg_base_z_index: 0;  // 基准 z-index
   }
 
   // 前后翻页栏
-  .jbhg-prev-next {
+  .jbhg-paging-bar {
     z-index: $jbhg_base_z_index + 5;
   }
-  .jbhg-prev-btn,
-  .jbhg-next-btn {
+  .jbhg-prev-page,
+  .jbhg-next-page {
     z-index: $jbhg_base_z_index + 6;
   }
 }
@@ -128,7 +128,7 @@ $jbhg_base_z_index: 0;  // 基准 z-index
 // 前后页翻页按钮
 // --------------------------------------------------
 
-@import "_prev_next.scss";
+@import "_paging_bar.scss";
 
 
 // --------------------------------------------------

@@ -1,9 +1,8 @@
 // --------------------------------------------------
 // 前后页翻页按钮
 // --------------------------------------------------
-.jbhg-prev-next {
+.jbhg-paging-bar {
   position: absolute;
-  display: none;
 }
 
 // --------------------------------------------------
@@ -11,19 +10,22 @@
 // --------------------------------------------------
 
 @mixin jbhg-paging-horizontal() {
-  .jbhg-prev-btn,
-  .jbhg-next-btn {
+  .jbhg-prev-page,
+  .jbhg-next-page {
     position: absolute;
     top: 0;
-    width: 2rem;
+    width: 3rem;
     height: 3rem;
     font-size: 2rem;
     line-height: 3rem;
     text-align: center;
     color: #ddd;
     cursor: pointer;
+  }
 
-    &:hover {
+  &:hover {
+    .jbhg-prev-page,
+    .jbhg-next-page {
       background: #888;
       color: #fff;
       opacity: 0.8;
@@ -36,17 +38,17 @@
 // .left-to-right
 // --------------------------------------------------
 
-.left-to-right .jbhg-prev-next {
+.left-to-right .jbhg-paging-bar {
   width: 100%;
   top: 40%;
 
   @include jbhg-paging-horizontal();
 
-  .jbhg-prev-btn {
+  .jbhg-prev-page {
     left: 1rem;
   }
 
-  .jbhg-next-btn {
+  .jbhg-next-page {
     right: 1rem;
   }
 }
@@ -55,17 +57,17 @@
 // .right-to-left
 // --------------------------------------------------
 
-.right-to-left .jbhg-prev-next {
+.right-to-left .jbhg-paging-bar {
   width: 100%;
   top: 40%;
 
   @include jbhg-paging-horizontal();
 
-  .jbhg-prev-btn {
+  .jbhg-prev-page {
     right: 1rem;
   }
 
-  .jbhg-next-btn {
+  .jbhg-next-page {
     left: 1rem;
   }
 }

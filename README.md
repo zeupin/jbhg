@@ -2,6 +2,8 @@
 
 一个简单实用的jquery焦点轮播图插件。
 
+![演示](demo.jpg)
+
 ## 特点
 
 * MIT授权，可以自由商用，但是请保留原始版权信息。
@@ -44,9 +46,9 @@
     </ul>
 
     <!-- 前后翻页按钮 -->
-    <div class="jbhg-prev-next">
-      <div class="jbhg-prev-btn">&lt;</div>
-      <div class="jbhg-next-btn">&gt;</div>
+    <div class="jbhg-paging-bar">
+      <div class="jbhg-prev-page">&lt;</div>
+      <div class="jbhg-next-page">&gt;</div>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 .jbhg { position: relative; width: 100%; height: 100%; overflow: hidden; }
 .jbhg ul, .jbhg li { margin: 0; padding: 0; }
-.jbhg .jbhg-slide, .jbhg .jbhg-indicator-list, .jbhg .jbhg-prev-btn, .jbhg .jbhg-next-btn { box-sizing: border-box; }
+.jbhg .jbhg-slide, .jbhg .jbhg-indicator-list, .jbhg .jbhg-prev-page, .jbhg .jbhg-next-page { box-sizing: border-box; }
 .jbhg .jbhg-indicator { box-sizing: content-box; }
 
 .jbhg .jbhg-slide { z-index: 0; }
@@ -10,8 +10,8 @@
 .jbhg .jbhg-slide.ready.active.done { z-index: 1; }
 .jbhg .jbhg-indicator-list { z-index: 5; }
 .jbhg .jbhg-indicator { z-index: 6; }
-.jbhg .jbhg-prev-next { z-index: 5; }
-.jbhg .jbhg-prev-btn, .jbhg .jbhg-next-btn { z-index: 6; }
+.jbhg .jbhg-paging-bar { z-index: 5; }
+.jbhg .jbhg-prev-page, .jbhg .jbhg-next-page { z-index: 6; }
 
 .jbhg-slide { position: absolute; width: 100%; height: 100%; top: 0; overflow: hidden; display: none; }
 
@@ -50,19 +50,19 @@
 .jbhg-indicator-list.disc-number .jbhg-indicator { background-color: #fff; border: 1px solid #888; color: #888; border-radius: 0.6rem; }
 .jbhg-indicator-list.disc-number .jbhg-indicator.active { background-color: #888; border: 1px solid #fff; color: #fff; }
 
-.jbhg-prev-next { position: absolute; display: none; }
+.jbhg-paging-bar { position: absolute; }
 
-.left-to-right .jbhg-prev-next { width: 100%; top: 40%; }
-.left-to-right .jbhg-prev-next .jbhg-prev-btn, .left-to-right .jbhg-prev-next .jbhg-next-btn { position: absolute; top: 0; width: 2rem; height: 3rem; font-size: 2rem; line-height: 3rem; text-align: center; color: #ddd; cursor: pointer; }
-.left-to-right .jbhg-prev-next .jbhg-prev-btn:hover, .left-to-right .jbhg-prev-next .jbhg-next-btn:hover { background: #888; color: #fff; opacity: 0.8; }
-.left-to-right .jbhg-prev-next .jbhg-prev-btn { left: 1rem; }
-.left-to-right .jbhg-prev-next .jbhg-next-btn { right: 1rem; }
+.left-to-right .jbhg-paging-bar { width: 100%; top: 40%; }
+.left-to-right .jbhg-paging-bar .jbhg-prev-page, .left-to-right .jbhg-paging-bar .jbhg-next-page { position: absolute; top: 0; width: 3rem; height: 3rem; font-size: 2rem; line-height: 3rem; text-align: center; color: #ddd; cursor: pointer; }
+.left-to-right .jbhg-paging-bar:hover .jbhg-prev-page, .left-to-right .jbhg-paging-bar:hover .jbhg-next-page { background: #888; color: #fff; opacity: 0.8; }
+.left-to-right .jbhg-paging-bar .jbhg-prev-page { left: 1rem; }
+.left-to-right .jbhg-paging-bar .jbhg-next-page { right: 1rem; }
 
-.right-to-left .jbhg-prev-next { width: 100%; top: 40%; }
-.right-to-left .jbhg-prev-next .jbhg-prev-btn, .right-to-left .jbhg-prev-next .jbhg-next-btn { position: absolute; top: 0; width: 2rem; height: 3rem; font-size: 2rem; line-height: 3rem; text-align: center; color: #ddd; cursor: pointer; }
-.right-to-left .jbhg-prev-next .jbhg-prev-btn:hover, .right-to-left .jbhg-prev-next .jbhg-next-btn:hover { background: #888; color: #fff; opacity: 0.8; }
-.right-to-left .jbhg-prev-next .jbhg-prev-btn { right: 1rem; }
-.right-to-left .jbhg-prev-next .jbhg-next-btn { left: 1rem; }
+.right-to-left .jbhg-paging-bar { width: 100%; top: 40%; }
+.right-to-left .jbhg-paging-bar .jbhg-prev-page, .right-to-left .jbhg-paging-bar .jbhg-next-page { position: absolute; top: 0; width: 3rem; height: 3rem; font-size: 2rem; line-height: 3rem; text-align: center; color: #ddd; cursor: pointer; }
+.right-to-left .jbhg-paging-bar:hover .jbhg-prev-page, .right-to-left .jbhg-paging-bar:hover .jbhg-next-page { background: #888; color: #fff; opacity: 0.8; }
+.right-to-left .jbhg-paging-bar .jbhg-prev-page { right: 1rem; }
+.right-to-left .jbhg-paging-bar .jbhg-next-page { left: 1rem; }
 
 .jbhg.fade .jbhg-slide.move { transition: all 2s; }
 .jbhg.fade .jbhg-slide.ready { display: block; opacity: 0.5; }
