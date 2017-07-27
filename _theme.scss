@@ -33,7 +33,7 @@ $theme-active-color: #eee;
   &:hover {
     .jbhg-prev-page,
     .jbhg-next-page {
-      background: $theme-active-border;
+      background: $theme-active-bg;
       color: $theme-active-color;
       opacity: 0.8;
     }

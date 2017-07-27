@@ -6,7 +6,7 @@
 
     &.ready {
       display: block;
-      opacity: 0.5;
+      opacity: 0;
     }
 
     &.ready.active {
@@ -15,9 +15,15 @@
     }
 
     &.ready.active.done {
-      left: 0;
+      left: 100%;
+      width: 0;
       opacity: 0.9;
       // transition: all 2s;
+    }
+  }
+
+  .jbhg-slide-effect {
+    &.move {
     }
   }
 }
