@@ -13,6 +13,9 @@
  *     left-to-right   从左到右 (默认)
  *     right-to-left   从右到左
  *
+ * autoplay:  自动播放
+ *     true/false   默认为true
+ *
  * interval: 显示画面的时长,以毫秒为单位
  *     5000   5秒 (默认)
  *
@@ -26,6 +29,9 @@
  *     disc           小圆点
  *     disc-number    圆圈和数字
  *     none           不显示指示器
+ *
+ * effect: 轮播的过场效果
+ *     fade           逐渐显示(默认)
  */
 ;
 (function ($) {
@@ -37,10 +43,11 @@
       // -----------------------------
       var defaults = {
         direction: "left-to-right",
-        effect: "fade",
+        autoplay: true,
         interval: 5000,
         indicator_position: "bottom-right",
         indicator_type: "square",
+        effect: "fade",
       }
 
       // attribute settings
@@ -65,7 +72,7 @@
 
         // 选项类型转换
         options.interval = Number(options.interval);
-        options.show_nav_buttons = Boolean(options.show_nav_buttons);
+        options.autoplay = (options.autoplay.toString().toLowerCase() === 'true');
 
         // 搜素所有jbhg-slide
         var slides = $(this).find(".jbhg-slide");
@@ -139,6 +146,9 @@
 
           // 如果slide小于2张，则不需要轮播
           if (slides.length < 2) return true;
+
+          // 如果autoplay选项为false，则不需要轮播
+          if (options.autoplay == false) return true;
 
           // 启动显示定时器
           if (!pause) {
