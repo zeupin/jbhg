@@ -2,15 +2,13 @@
 
 一个简单实用的jquery焦点轮播图插件。
 
-![](demo.jpg)
+![演示](demo.jpg)
 
 ## 特点
 
 * MIT授权，可以自由商用，但是请保留原始版权信息。
 * 兼容IE8+（兼容IE8时，需要使用jquery 1.x，且有些用css3定义的款式不能用）。
 * 多个配置项，基本满足大多数网站的配置要求。
-* 最后一页可平滑切换到第一页。
-* 按需呈现前后翻页按钮，不需要时，自动隐藏，增强客户的浏览体验。
 * 核心样式和主题样式分离。
 * 体积小巧，min后，js和css加一起不到10kb！
 * 代码结构清晰，使用方便。
@@ -48,9 +46,9 @@
     </ul>
 
     <!-- 前后翻页按钮 -->
-    <div class="jbhg-prev-next">
-      <div class="jbhg-prev-btn">&lt;</div>
-      <div class="jbhg-next-btn">&gt;</div>
+    <div class="jbhg-paging-bar">
+      <div class="jbhg-prev-page">&lt;</div>
+      <div class="jbhg-next-page">&gt;</div>
     </div>
   </div>
 
@@ -80,6 +78,12 @@
 |----|----
 | 毫秒数 | 默认是 5000
 
+### autoplay: 是否自动轮播。
+
+| 值 | 说明
+|----|----
+| true/false | 默认是true
+
 ### indicator_position: 指示器的位置
 
 | 值 | 说明
@@ -96,6 +100,41 @@
 | disc          | 小圆点
 | disc-number   | 圆圈和数字
 | none          | 不显示指示器
+
+### effect: 轮播的过场效果
+
+| 值 | 说明
+|----|----
+| fade | 逐渐出现 (默认)
+
+## 配置参数的使用方法
+
+支持两种方式使用配置参数：
+
+### 1. 直接在html中使用 `data-*`。这种方式的优先级最高。
+
+```
+<div class="jbhg" data-interval="8000" data-indicator-type="disc-number">...</div>
+```
+
+### 2. 在js使用时传入。这种方式的优先级其次。
+
+```
+  <script>
+    $(".jbhg").jbhg({
+      'direction': "left-to-right",
+      'interval': 10000,
+    });
+  </script>
+```
+
+## 主题
+
+内置了两个主题，分别对应暗色调的背景图和亮色调的背景图。
+
+默认是暗色调背景图，直接使用 `<div class="jbhg">...</div>` 即可。
+
+可选亮色调背景，用 `<div class="jbhg light">...</div>`。
 
 ## 一起参与
 
