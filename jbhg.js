@@ -307,7 +307,7 @@
 
         // 向后翻页效果
         function move() {
-          clearTimeout();
+          clearTimeout(timer);
 
           slides.eq(current).addClass("move");
           slides.eq(next).addClass("move");
