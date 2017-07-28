@@ -52,42 +52,15 @@
         indicator_type: "square",
         effect: "fade",
         auto_hide_paging_bar: false,
-      }
-
-      // -----------------------------
-      // 工具函数:转换为bool型
-      // -----------------------------
-      function toBool(val) {
-        switch(typeof(val)) {
-          case "boolean":
-            return val;
-          case "string":
-            return val.toString().toLowerCase() === 'true';
-          default:
-            return Boolean(val);
-        }
+        paging_bar_z_index: 100,
+        indicator_list_z_index: 100,
       }
 
       // -----------------------------
       // 正式开始处理
       // -----------------------------
       this.each(function () {
-
-        // 获取jbhg属性中的data-*
-        function getPropData(element) {
-          var data = {}
-          for (var i=0, len=element.attributes.length; i<len; i++) {
-            var attr = element.attributes[i];
-            if (attr.nodeName.indexOf('data-') != -1) {
-              var name = attr.nodeName.slice(5).replace(/\-/, '_');
-              var value = attr.value;
-              data[name] = value;
-            }
-          }
-          return data;
-        }
-
-        // 整合选项
+        // 选项集合
         var options = $.extend({}, defaults, parameters, getPropData(this));
 
         // 选项类型转换
@@ -100,67 +73,192 @@
         var slides_count = slides.length;
 
         // 如果没有找到 jbhg.slide, 直接返回
-        if (slides.length == 0) return true;
+        if (slides_count == 0) return true;
 
-        // 把轮播方向和过场效果附加到.jbhg上
-        $(this).addClass(options.direction).addClass(options.effect);
+        // 把轮播方向附加到.jbhg上
+        $(this).addClass(options.direction);
 
-        // 搜素所有的.jbhg-indicator
+        // 把轮播过场效果附加到.jbhg上
+        $(this).addClass(options.effect);
+
+        // 搜素所有的.jbhg-indicator,如果没有就自己生成一个
         var indicator_list = $(this).find(".jbhg-indicator-list");
         var indicators = $(this).find(".jbhg-indicator");
         if (indicators.length == 0) {
           indicator_list = $('<div class="jbhg-indicator-list"/>').appendTo(this);
           indicator_list.addClass(options.indicator_type);
           indicator_list.addClass(options.indicator_position);
-          for (var i=0; i<slides_count; i++) {
-            $('<div class="jbhg-indicator">'+(i+1)+'</div>').appendTo(indicator_list);
+          for (var i = 0; i < slides_count; i++) {
+            $('<div class="jbhg-indicator">' + (i + 1) + '</div>').appendTo(indicator_list);
           }
           indicators = $(this).find(".jbhg-indicator");
         }
+        indicator_list.css({
+          "z-index": options.indicator_list_z_index,
+        });
 
         // 搜索前后翻页按钮
         var paging_bar = $(this).find(".jbhg-paging-bar");
         var prev_page = $(this).find(".jbhg-prev-page");
         var next_page = $(this).find(".jbhg-next-page");
+        paging_bar.css({
+          "z-index": options.paging_bar_z_index,
+        });
 
         // 计时器相关变量
         var timer = null;
-        var pause = false;  // 是否暂停轮播
+        var pause = false; // 是否暂停轮播
 
         // 索引指示变量
         var current = 0;
-        var prev = slides.length - 1;
-        var next = current + 1;
+        var next = recalc(current + 1);
 
         // 开始处理
-        current = 0;
         show();
+
+        // --------------------------------------------------
+        // 处理自动隐藏翻页栏
+        // --------------------------------------------------
+        if (options.auto_hide_paging_bar) {
+          // 先把翻页栏隐藏
+          paging_bar.hide();
+
+          // 鼠标进入
+          $(this).mouseenter(function () {
+            // 显示翻页按钮
+            if (slides.length > 1) {
+              paging_bar.show();
+            }
+          });
+
+          // 鼠标移出
+          $(this).mouseleave(function () {
+            // 隐藏翻页按钮
+            paging_bar.hide();
+          });
+        }
+
+        // --------------------------------------------------
+        // 鼠标移出显示区,重新启动动画
+        // --------------------------------------------------
+        $(this).mouseleave(function () {
+          // 看看是否需要运行动画
+          if (pause == true) {
+            pause = false;
+            show();
+          }
+        });
+
+        // --------------------------------------------------
+        // 处理指示器的事件
+        // --------------------------------------------------
+        indicators.each(function (index, element) {
+
+          // 移动到指示器上方时,显示对应的slide
+          $(this).mouseenter(function () {
+            clearTimeout(timer);
+            pause = true;
+            current = index;
+            show();
+          });
+        });
+
+        // --------------------------------------------------
+        // 处理前后翻页的事件
+        // --------------------------------------------------
+        // 前翻页按钮事件
+        if (prev_page.length) {
+          prev_page.click(function () {
+            clearTimeout(timer);
+            current--;
+            show();
+          });
+        }
+        // 后翻页按钮事件
+        if (next_page.length) {
+          next_page.click(function () {
+            clearTimeout(timer);
+            current++;
+            show();
+          });
+        }
+
+        // -----------------------------
+        // 获取jbhg属性中的data-*
+        // -----------------------------
+        function getPropData(element) {
+          var data = {}
+          for (var i = 0, len = element.attributes.length; i < len; i++) {
+            var attr = element.attributes[i];
+            if (attr.nodeName.indexOf('data-') != -1) {
+              var name = attr.nodeName.slice(5).replace(/\-/, '_');
+              var value = attr.value;
+              data[name] = value;
+            }
+          }
+          return data;
+        }
+
+        // -----------------------------
+        // 工具函数:转换为bool型
+        // -----------------------------
+        function toBool(val) {
+          switch (typeof (val)) {
+            case "boolean":
+              return val;
+            case "string":
+              return val.toString().toLowerCase() === 'true';
+            default:
+              return Boolean(val);
+          }
+        }
+
+        // --------------------------------------------------
+        // 当前位置标准化
+        // --------------------------------------------------
+        function recalc(idx) {
+          idx = (idx < 0) ? (idx + slides_count) : idx;
+          return idx % slides_count;
+        }
+
+        // --------------------------------------------------
+        // 设置当前指示器
+        // --------------------------------------------------
+        function setIndicaot(idx) {
+          for (var i = 0, len = indicators.length; i < len; i++) {
+            if (i == idx) {
+              indicators.eq(i).addClass("active");
+            } else {
+              indicators.eq(i).removeClass("active");
+            }
+          }
+        }
 
         // 显示当前画面
         function show() {
-          // 计算 current, next
-          current = (current < 0) ? (current + slides_count) : current;
-          current = current % slides_count;
-          next = (current + 1) % slides_count;
+          clearTimeout(timer);
+
+          slides.removeClass("move");
+
+          current = recalc(current);
+          next = recalc(current + 1);
 
           // 设置指示器
-          indicators.removeClass("active");
-          indicators.eq(current).addClass("active");
+          setIndicaot(current);
 
           // 对画面设置相应的类
-          slides.each(function(index, element){
-            element = $(element);
-            if (index == current) {
-              // 对当前画面的处理
-              element.addClass("ready active").removeClass("done move");
-            } else if (index == next) {
-              // 对下一个画面的处理
-              element.addClass("ready").removeClass("active done move");
-            } else {
-              // 其它
-              element.removeClass("ready active done move");
+          for (var i = 0, len = slides.length; i < len; i++) {
+            switch (i) {
+              case current:
+                slides.eq(i).removeClass("prev next done").addClass("current ready");
+                break;
+              case next:
+                slides.eq(i).removeClass("prev current done").addClass("next ready");
+                break;
+              default:
+                slides.eq(i).removeClass("prev current next ready done");
             }
-          });
+          }
 
           // 如果slide小于2张，则不需要轮播
           if (slides.length < 2) return true;
@@ -175,91 +273,23 @@
           }
         }
 
-        // 显示过渡动画
+        // 向后翻页效果
         function move() {
-          clearTimeout(timer);
+          clearTimeout();
 
-          indicators.eq(current).removeClass("active");
-          indicators.eq(next).addClass("active");
+          slides.eq(current).addClass("move");
+          slides.eq(next).addClass("move");
 
-          slides.eq(current).addClass("ready active done move");
-          slides.eq(next).addClass("ready active move");
+          // 设置指示器
+          setIndicaot(next);
 
-          timer = window.setTimeout(done, 2000);
-        }
+          slides.eq(current).removeClass("ready").addClass("done");
+          slides.eq(next).removeClass("ready").addClass("done");
 
-        // 完成
-        function done() {
-          clearTimeout(timer);
+          current = recalc(current + 1);
+          next = recalc(current + 1);
 
-          slides.eq(current).removeClass("already active done move");
-          slides.eq(next).removeClass("move");
-
-          prev = current;
-          current++;
-
-          show();
-        }
-
-        /**
-         * 处理自动隐藏翻页栏
-         */
-        if (options.auto_hide_paging_bar) {
-          // 先把翻页栏隐藏
-          paging_bar.hide();
-
-          // 鼠标进入
-          $(this).mouseenter(function(){
-            // 显示翻页按钮
-            if (slides.length > 1) {
-                paging_bar.show();
-            }
-          });
-
-          // 鼠标移出
-          $(this).mouseleave(function(){
-            // 隐藏翻页按钮
-            paging_bar.hide();
-          });
-        }
-
-        // 鼠标移开,重新启动动画
-        $(this).mouseleave(function(){
-          // 看看是否需要运行动画
-          if (pause == true) {
-            pause = false;
-            show();
-          }
-        });
-
-        // 处理指示器的事件
-        indicators.each(function(index, element){
-
-          // 移动到指示器上方时,显示对应的slide
-          $(this).mouseenter(function(){
-            clearTimeout(timer);
-            pause = true;
-            current = index;
-            show();
-          });
-        });
-
-        // 前翻页按钮事件
-        if (prev_page.length) {
-          prev_page.click(function(){
-            clearTimeout(timer);
-            current--;
-            show();
-          });
-        }
-
-        // 后翻页按钮事件
-        if (next_page.length) {
-          next_page.click(function(){
-            clearTimeout(timer);
-            current++;
-            show();
-          });
+          timer = window.setTimeout(show, 2000);
         }
       });
 

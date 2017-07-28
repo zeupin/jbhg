@@ -1,29 +1,35 @@
 .jbhg.fade {
   .jbhg-slide {
+    display: none;
+
+
+    // 过场时长
     &.move {
       transition: all 2s;
     }
 
-    &.ready {
+    // 当前卡片的变换
+    &.current.ready {
       display: block;
-      opacity: 0;
+      left: 0;
+      width: 100%;
     }
-
-    &.ready.active {
-      opacity: 1;
-      // transition: all 2s;
-    }
-
-    &.ready.active.done {
+    &.current.done {
+      display: block;
       left: 100%;
       width: 0;
-      opacity: 0.9;
-      // transition: all 2s;
     }
-  }
 
-  .jbhg-slide-effect {
-    &.move {
+    // 下个卡片的变换
+    &.next.ready {
+      display: block;
+      left: -100%;
+      width: 100%;
+    }
+    &.next.done {
+      display: block;
+      left: 0;
+      width: 100%;
     }
   }
 }

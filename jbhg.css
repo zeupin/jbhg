@@ -69,10 +69,12 @@
 .right-to-left .jbhg-paging-bar .jbhg-prev-page { right: 1rem; }
 .right-to-left .jbhg-paging-bar .jbhg-next-page { left: 1rem; }
 
+.jbhg.fade .jbhg-slide { display: none; }
 .jbhg.fade .jbhg-slide.move { transition: all 2s; }
-.jbhg.fade .jbhg-slide.ready { display: block; opacity: 0; }
-.jbhg.fade .jbhg-slide.ready.active { opacity: 1; }
-.jbhg.fade .jbhg-slide.ready.active.done { left: 100%; width: 0; opacity: 0.9; }
+.jbhg.fade .jbhg-slide.current.ready { display: block; left: 0; width: 100%; }
+.jbhg.fade .jbhg-slide.current.done { display: block; left: 100%; width: 0; }
+.jbhg.fade .jbhg-slide.next.ready { display: block; left: -100%; width: 100%; }
+.jbhg.fade .jbhg-slide.next.done { display: block; left: 0; width: 100%; }
 
 .jbhg-full-size { display: block; width: 100%; height: 100%; }
 
