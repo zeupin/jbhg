@@ -35,6 +35,15 @@
  *
  * auto_hide_paging_bar: 是否自动隐藏前后翻页栏
  *     true/false    默认为false
+ *
+ * z_index: 基准z-index
+ *     0    默认是0
+ *
+ * paging_bar_z_index: 翻页栏的z-index值
+ *    100   （会叠加z_index的值）
+ *
+ * indicator_list_z_index: 指示器栏的z-index值
+ *    100   （会叠加z_index的值）
  */
 ;
 (function ($) {
@@ -52,6 +61,7 @@
         indicator_type: "square",
         effect: "fade",
         auto_hide_paging_bar: false,
+        z_index: 0,
         paging_bar_z_index: 100,
         indicator_list_z_index: 100,
       }
@@ -67,6 +77,11 @@
         options.interval = Number(options.interval);
         options.autoplay = toBool(options.autoplay);
         options.auto_hide_paging_bar = toBool(options.auto_hide_paging_bar);
+        options.z_index = Number(options.z_index);
+        options.paging_bar_z_index = Number(options.paging_bar_z_index);
+        options.paging_bar_z_index += options.z_index;
+        options.indicator_list_z_index = Number(options.indicator_list_z_index);
+        options.indicator_list_z_index += options.z_index;
 
         // 搜素所有jbhg-slide
         var slides = $(this).find(".jbhg-slide");
@@ -74,6 +89,14 @@
 
         // 如果没有找到 jbhg.slide, 直接返回
         if (slides_count == 0) return true;
+
+        // 基准z-index
+        $(this).css({
+          "z-index": options.z_index,
+        });
+        slides.css({
+          "z-index": options.z_index + 1,
+        });
 
         // 把轮播方向附加到.jbhg上
         $(this).addClass(options.direction);
@@ -96,6 +119,9 @@
         indicator_list.css({
           "z-index": options.indicator_list_z_index,
         });
+        indicators.css({
+          "z-index": options.indicator_list_z_index + 1
+        });
 
         // 搜索前后翻页按钮
         var paging_bar = $(this).find(".jbhg-paging-bar");
@@ -103,6 +129,12 @@
         var next_page = $(this).find(".jbhg-next-page");
         paging_bar.css({
           "z-index": options.paging_bar_z_index,
+        });
+        prev_page.css({
+          "z-index": options.paging_bar_z_index + 1,
+        });
+        next_page.css({
+          "z-index": options.paging_bar_z_index + 1,
         });
 
         // 计时器相关变量

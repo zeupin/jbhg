@@ -26,52 +26,6 @@
   }
 }
 
-// ---------------------------------------------------
-// z-index
-// ---------------------------------------------------
-
-$jbhg_base_z_index: 0;  // 基准 z-index
-
-.jbhg {
-  // 普通
-  .jbhg-slide {
-    z-index: $jbhg_base_z_index;
-  }
-  // 特效层
-  .jbhg-slide-effect {
-    z-index: $jbhg_base_z_index + 4;
-  }
-  // 等待进场
-  .jbhg-slide.ready {
-    z-index: $jbhg_base_z_index + 3;
-  }
-  // 当前显示
-  .jbhg-slide.ready.active {
-    z-index: $jbhg_base_z_index + 2;
-  }
-  // 已经退场
-  .jbhg-slide.ready.active.done {
-    z-index: $jbhg_base_z_index + 1;
-  }
-
-  // 指示器
-  .jbhg-indicator-list {
-    z-index: $jbhg_base_z_index + 5;
-  }
-  .jbhg-indicator {
-    z-index: $jbhg_base_z_index + 6;
-  }
-
-  // 前后翻页栏
-  .jbhg-paging-bar {
-    z-index: $jbhg_base_z_index + 5;
-  }
-  .jbhg-prev-page,
-  .jbhg-next-page {
-    z-index: $jbhg_base_z_index + 6;
-  }
-}
-
 
 // ---------------------------------------------------
 // slide设置
