@@ -107,11 +107,19 @@
 |----|----
 | fade | 逐渐出现 (默认)
 
+### z_index: 控件的基准z-index
+
+| 值 | 说明
+|----|----
+| 整数 | 0 (默认)
+
 ### paging_bar_z_index: 翻页栏的z-index
 
 | 值 | 说明
 |----|----
 | 整数 | 100 (默认)
+
+> 会在基准z-index上叠加。比如z_index=1000, paging_bar_z_index=20, 则实际的翻页栏的z-index是1020。
 
 ### indicator_list_z_index: 位置指示器的z-index
 
@@ -119,7 +127,7 @@
 |----|----
 | 整数 | 100 (默认)
 
-
+> 会在基准z-index上叠加。比如z_index=1000, indicator_list_z_index=20, 则实际的指示栏的z-index是1020。
 
 ## 配置参数的使用方法
 
