@@ -31,7 +31,7 @@
  *     none           不显示指示器
  *
  * effect: 轮播的过场效果
- *     fade           逐渐显示(默认)
+ *     slip           滑动(默认)
  *
  * auto_hide_paging_bar: 是否自动隐藏前后翻页栏
  *     true/false    默认为false
@@ -59,7 +59,7 @@
         interval: 5000,
         indicator_position: "bottom-right",
         indicator_type: "square",
-        effect: "fade",
+        effect: "slip",
         auto_hide_paging_bar: false,
         z_index: 0,
         paging_bar_z_index: 100,

@@ -1,7 +1,41 @@
-.jbhg.fade {
+.jbhg.slip {
   .jbhg-slide {
     display: none;
 
+    // 过场时长
+    &.move {
+      transition: all 2s;
+    }
+
+    // 当前卡片的变换
+    &.current.ready {
+      display: block;
+      left: 0;
+      top: 0;
+    }
+    &.current.done {
+      display: block;
+      left: 100%;
+      top: 0;
+    }
+
+    // 下个卡片的变换
+    &.next.ready {
+      display: block;
+      left: -100%;
+      top: 0;
+    }
+    &.next.done {
+      display: block;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+.jbhg.zip {
+  .jbhg-slide {
+    display: none;
 
     // 过场时长
     &.move {
